@@ -1,0 +1,25 @@
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local data and source documents
+data/
+
+# Generated evaluation outputs
+reports/
+results/
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

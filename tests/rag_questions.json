@@ -1,0 +1,90 @@
+[
+  {
+    "question": "What were Volvo Group's net sales in 2025?",
+    "expected_page": 37,
+    "expected_answer_contains": "479,183",
+    "answerable": true
+  },
+  {
+    "question": "Approximately how many people does Volvo Group employ, according to the overview?",
+    "expected_page": 2,
+    "expected_answer_contains": "99,000",
+    "answerable": true
+  },
+  {
+    "question": "How many employees did Volvo Group report in its detailed 2025 employee table?",
+    "expected_page": 127,
+    "expected_answer_contains": "89,188",
+    "answerable": true
+  },
+  {
+    "question": "When was Volvo Group founded?",
+    "expected_page": 2,
+    "expected_answer_contains": "1927",
+    "answerable": true
+  },
+  {
+    "question": "What was Volvo Group's net sales in 2024?",
+    "expected_page": 37,
+    "expected_answer_contains": "526,816",
+    "answerable": true
+  },
+  {
+    "question": "What was Volvo Group's total number of employees in 2025 according to the key ratios table?",
+    "expected_page": 8,
+    "expected_answer_contains": "98,844",
+    "answerable": true
+  },
+  {
+    "question": "What was Volvo Group's total number of employees in 2024 according to the key ratios table?",
+    "expected_page": 8,
+    "expected_answer_contains": "101,595",
+    "answerable": true
+  },
+  {
+    "question": "What was the average number of employees in Volvo Group in 2024 according to the detailed employee table?",
+    "expected_page": 127,
+    "expected_answer_contains": "90,995",
+    "answerable": true
+  },
+  {
+    "question": "What were Volvo Group's 2025 net sales according to the key ratios table?",
+    "expected_page": 8,
+    "expected_answer_contains": "479,183",
+    "answerable": true
+  },
+  {
+    "question": "What were Volvo Group's 2024 net sales according to the key ratios table?",
+    "expected_page": 8,
+    "expected_answer_contains": "526,816",
+    "answerable": true
+  },
+  {
+    "question": "By how much did Volvo Group net sales decrease from 2024 to 2025, in SEK M?",
+    "expected_page": 37,
+    "expected_answer_contains": "479,183",
+    "answerable": true
+  },
+  {
+    "question": "What was Volvo Group's total number of employees in 2025?",
+    "expected_page": 8,
+    "expected_answer_contains": "98,844",
+    "answerable": true
+  },
+  {
+    "question": "What was the average number of employees in Volvo Group in 2025 according to the detailed employee table?",
+    "expected_page": 127,
+    "expected_answer_contains": "89,188",
+    "answerable": true
+  },
+  {
+    "question": "What currency is used to report Volvo Group's net sales in the key ratios table?",
+    "expected_page": 8,
+    "expected_answer_contains": "SEK",
+    "answerable": true
+  },
+  {
+    "question": "What was Volvo Group's exact daily employee attendance on 15 March 2025?",
+    "answerable": false
+  }
+]
