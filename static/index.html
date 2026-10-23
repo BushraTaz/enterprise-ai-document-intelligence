@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f8fa">
+  <title>Document Intelligence</title>
+  <style>
+    :root {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #182230;
+      background: #f7f8fa;
+      font-synthesis: none;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; }
+    header {
+      height: 68px; background: white; border-bottom: 1px solid #e5e8ee;
+      display: flex; align-items: center; padding: 0 7%;
+      justify-content: space-between;
+    }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 700; }
+    .brand-mark {
+      display: grid; place-items: center; width: 36px; height: 36px;
+      background: #172f50; color: white; border-radius: 10px; font-size: 19px;
+    }
+    .top-label { color: #657184; font-size: 13px; }
+    main { max-width: 900px; margin: 0 auto; padding: 64px 24px 80px; }
+    .eyebrow {
+      color: #3565a8; font-size: 12px; font-weight: 750;
+      letter-spacing: 1.5px; text-transform: uppercase;
+    }
+    h1 { font-size: clamp(32px, 5vw, 45px); letter-spacing: -1.6px; margin: 14px 0; }
+    .intro { color: #667085; line-height: 1.7; max-width: 620px; margin-bottom: 34px; }
+    .panel {
+      background: white; border: 1px solid #e1e6ed; border-radius: 16px;
+      padding: 24px; box-shadow: 0 8px 28px #172f5008;
+    }
+    label { display: block; font-size: 14px; font-weight: 650; margin-bottom: 12px; }
+    textarea {
+      width: 100%; min-height: 112px; resize: vertical; padding: 15px;
+      border: 1px solid #d5dce5; border-radius: 10px; font: inherit;
+      line-height: 1.55; outline: none; background: #fff; color: #182230;
+    }
+    textarea:focus { border-color: #3565a8; box-shadow: 0 0 0 3px #3565a81c; }
+    .actions {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; margin-top: 15px; flex-wrap: wrap;
+    }
+    .hint { color: #778194; font-size: 12px; }
+    button {
+      background: #203e67; color: white; border: 0; border-radius: 9px;
+      padding: 12px 18px; font: inherit; font-weight: 650; cursor: pointer;
+    }
+    button:hover { background: #2d5488; }
+    button:disabled { opacity: .6; cursor: wait; }
+    .examples { margin: 20px 0 0; }
+    .examples p { font-size: 12px; color: #778194; margin-bottom: 10px; }
+    .example {
+      display: inline-block; margin: 0 7px 7px 0; padding: 8px 11px;
+      border: 1px solid #e0e5ec; background: white; color: #42516a;
+      border-radius: 8px; font-size: 12px; cursor: pointer;
+    }
+    .example:hover { border-color: #9bb4d5; background: #f6f9fd; }
+    #notice { margin-top: 18px; color: #9b3434; font-size: 14px; line-height: 1.5; }
+    #result { margin-top: 28px; }
+    .result-heading {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap; margin-bottom: 13px;
+    }
+    h2 { font-size: 19px; margin: 0; letter-spacing: -.3px; }
+    .status {
+      border-radius: 999px; padding: 6px 10px; font-size: 11px;
+      font-weight: 750; background: #edf7ef; color: #27683b;
+    }
+    .status.warning { background: #fff4df; color: #8a5a12; }
+    .answer { white-space: pre-wrap; line-height: 1.8; font-size: 14px; overflow-wrap: anywhere; }
+    .section-label {
+      color: #667085; font-size: 11px; text-transform: uppercase;
+      letter-spacing: 1px; font-weight: 750; margin: 25px 0 10px;
+    }
+    .sources { display: flex; gap: 8px; flex-wrap: wrap; }
+    .source {
+      border: 1px solid #dce5f0; background: #f5f8fc; color: #294e7c;
+      border-radius: 8px; padding: 8px 11px; font-size: 12px;
+    }
+    footer { text-align: center; color: #929baa; font-size: 12px; margin-top: 38px; }
+    [hidden] { display: none !important; }
+    @media (max-width: 600px) {
+      header { padding: 0 18px; }
+      main { padding: 42px 16px 56px; }
+      .panel { padding: 18px; }
+      .top-label { font-size: 11px; }
+      .actions button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">D</div>
+      <span>Document Intelligence</span>
+    </div>
+    <span class="top-label">Evidence-grounded AI</span>
+  </header>
+
+  <main>
+    <div class="eyebrow">Enterprise knowledge assistant</div>
+    <h1>Ask your documents.</h1>
+    <p class="intro">
+      Ask a question about the indexed company report. Get an answer with
+      source-page references and an evidence-validation status.
+    </p>
+
+    <section class="panel" aria-labelledby="question-label">
+      <form id="question-form">
+        <label id="question-label" for="question">What would you like to know?</label>
+        <textarea id="question" minlength="3" maxlength="1000" required
+          placeholder="e.g. What were Volvo Group's total net sales in 2025?"></textarea>
+        <div class="actions">
+          <span class="hint">Answers are checked against retrieved evidence.</span>
+          <button id="ask-button" type="submit">Ask question &nbsp; →</button>
+        </div>
+      </form>
+      <div class="examples">
+        <p>Try an example</p>
+        <button class="example" type="button" data-question="What were Volvo Group's total net sales in 2025?">2025 net sales</button>
+        <button class="example" type="button" data-question="How many employees did Volvo Group have in 2025?">Employee figures</button>
+        <button class="example" type="button" data-question="What does the report say about Volvo Group's sustainability goals?">Sustainability goals</button>
+      </div>
+    </section>
+
+    <div id="notice" role="alert" hidden></div>
+
+    <section id="result" hidden aria-live="polite">
+      <div class="result-heading">
+        <h2>Answer</h2>
+        <span id="validation-status" class="status"></span>
+      </div>
+      <div class="panel">
+        <div id="answer" class="answer"></div>
+        <div class="section-label">Source pages</div>
+        <div id="sources" class="sources"></div>
+      </div>
+    </section>
+
+    <footer>Document Intelligence · Answers may require human verification.</footer>
+  </main>
+
+  <script>
+    const form = document.getElementById("question-form");
+    const question = document.getElementById("question");
+    const button = document.getElementById("ask-button");
+    const notice = document.getElementById("notice");
+    const result = document.getElementById("result");
+    const answer = document.getElementById("answer");
+    const sources = document.getElementById("sources");
+    const validationStatus = document.getElementById("validation-status");
+
+    document.querySelectorAll("[data-question]").forEach((item) => {
+      item.addEventListener("click", () => {
+        question.value = item.dataset.question;
+        question.focus();
+      });
+    });
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const text = question.value.trim();
+      if (text.length < 3) {
+        notice.textContent = "Please enter a question with at least 3 characters.";
+        notice.hidden = false;
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Searching evidence…";
+      notice.hidden = true;
+      result.hidden = true;
+
+      try {
+        const response = await fetch("/api/v1/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question: text })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          const detail = data.detail;
+          const message = typeof detail === "string"
+            ? detail
+            : detail?.message || detail?.detail ||
+              (response.status === 429
+                ? "Too many requests. Please wait a moment and try again."
+                : "The question could not be answered from the available evidence.");
+          throw new Error(message);
+        }
+
+        answer.textContent = data.answer || "No answer was returned.";
+        sources.replaceChildren();
+
+        const pages = Array.isArray(data.citations) ? data.citations : [];
+        const uniquePages = [...new Set(
+          pages.map((item) => Number(item.page)).filter(Number.isInteger)
+        )];
+
+        if (uniquePages.length) {
+          uniquePages.forEach((page) => {
+            const tag = document.createElement("span");
+            tag.className = "source";
+            tag.textContent = `Page ${page}`;
+            sources.appendChild(tag);
+          });
+        } else {
+          sources.textContent = "No source pages were returned.";
+        }
+
+        validationStatus.textContent = data.validation_passed
+          ? "✓ Evidence checks passed"
+          : "⚠ Evidence checks need review";
+        validationStatus.className = data.validation_passed
+          ? "status"
+          : "status warning";
+
+        result.hidden = false;
+      } catch (error) {
+        notice.textContent = error.message ||
+          "Could not connect to the API. Check that the server is running.";
+        notice.hidden = false;
+      } finally {
+        button.disabled = false;
+        button.textContent = "Ask question  →";
+      }
+    });
+  </script>
+</body>
+</html>

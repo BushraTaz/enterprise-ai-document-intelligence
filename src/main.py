@@ -8,7 +8,8 @@ from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, HTTPException, Request, status
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
+from pathlib import Path
 from pydantic import BaseModel, Field
 from qdrant_client import QdrantClient
 from sentence_transformers import SentenceTransformer
@@ -125,7 +126,9 @@ app = FastAPI(
     title="Enterprise AI Document Intelligence API",
     description="A document question-answering API with evidence checks.",
     version="0.1.0",
+    lifespan=lifespan,
 )
+
 
 
 # Rate limiter: maximum 10 ask requests per client per 60 seconds.
@@ -185,6 +188,7 @@ async def request_logging_middleware(request: Request, call_next):
     try:
         response = await call_next(request)
     except Exception:
+        logger.exception("request_middleware_failed")
         response = JSONResponse(
             status_code=500,
             content={
@@ -228,7 +232,12 @@ async def request_logging_middleware(request: Request, call_next):
 
     return response
 
+FRONTEND_DIR = Path(__file__).resolve().parent.parent / "static"
 
+
+@app.get("/", include_in_schema=False)
+def frontend():
+    return FileResponse(FRONTEND_DIR / "index.html")
 @app.get("/health")
 def health():
     """Check whether the API process is running."""

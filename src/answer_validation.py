@@ -1,25 +1,24 @@
 
 import re
 
+def cited_pages(answer):
+    """Return page numbers from single or combined citations."""
+    pages = set()
+
+    pattern = r"\[Page\s+\d+(?:\s*,\s*(?:Page\s+)?\d+)*\]"
+
+    for match in re.finditer(pattern, answer, re.IGNORECASE):
+        pages.update(
+            int(page)
+            for page in re.findall(r"\d+", match.group(0))
+        )
+
+    return pages
+
 
 def has_page_citation(answer):
-    """Check whether an answer contains a citation like [Page 8]."""
-    return bool(
-        re.search(r"\[Page\s+\d+\]", answer, re.IGNORECASE)
-    )
-
-
-def cited_pages(answer):
-    """Return all page numbers cited in an answer."""
-    return {
-        int(page)
-        for page in re.findall(
-            r"\[Page\s+(\d+)\]",
-            answer,
-            re.IGNORECASE,
-        )
-    }
-
+    """Check whether an answer contains at least one page citation."""
+    return bool(cited_pages(answer))
 
 def cites_retrieved_page(answer, retrieved_pages):
     """Check whether at least one cited page was retrieved."""
@@ -31,11 +30,10 @@ def figures_in_text(text):
     """Extract numeric figures, including comma-separated numbers."""
     return set(
         re.findall(
-            r"(?<!\w)\d[\d,]*(?:\.\d+)?",
+            r"(?<!\w)(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?",
             text,
         )
     )
-
 
 def figures_supported_by_cited_evidence(answer, evidence_by_page):
     """
@@ -49,11 +47,11 @@ def figures_supported_by_cited_evidence(answer, evidence_by_page):
         return False
 
     answer_without_citations = re.sub(
-        r"\[Page\s+\d+\]",
-        "",
-        answer,
-        flags=re.IGNORECASE,
-    )
+    r"\[Page\s+\d+(?:\s*,\s*(?:Page\s+)?\d+)*\]",
+    "",
+    answer,
+    flags=re.IGNORECASE,
+)
 
     # Ignore numbered-list markers at the beginning of each line.
     answer_without_citations = re.sub(

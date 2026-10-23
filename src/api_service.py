@@ -1,7 +1,7 @@
 
 """Service layer connecting the FastAPI application to the RAG pipeline."""
 
-from rag import (
+from src.rag import(
     build_prompt,
     check_retrieved_evidence,
     retrieve_chunks,
