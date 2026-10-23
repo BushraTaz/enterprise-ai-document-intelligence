@@ -29,6 +29,10 @@ def retrieve_chunks(query, model, client, limit=5):
             "Volvo Group number of employees in 2025 and 2024 "
             "89,188 90,995 employee count"
         )
+        queries.append(
+            "Volvo Group key ratios total number of employees "
+            "2025 98,844 2024 101,595"
+        )
 
     # Target the key-ratios table for relevant net-sales questions.
     if "net sales" in normalized_query and "key ratios" in normalized_query:
