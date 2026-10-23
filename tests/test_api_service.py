@@ -251,3 +251,28 @@ def test_answer_without_matching_page_citation_returns_no_citations(
     assert result["citations"] == []
     assert result["validation"]["passed"] is False
     dependencies["gemini"].interactions.create.assert_called_once()
+
+
+def test_unanswerable_daily_attendance_question_blocks_gemini(
+    monkeypatch,
+    dependencies,
+):
+    """An unsupported exact-date question must not reach generation."""
+    monkeypatch.setattr(
+        api_service,
+        "retrieve_chunks",
+        Mock(return_value=dependencies["results"]),
+    )
+
+    with pytest.raises(EvidenceInsufficientError):
+        answer_question(
+            question=(
+                "What was Volvo Group's exact daily employee "
+                "attendance on 15 March 2025?"
+            ),
+            embedding_model=dependencies["embedding_model"],
+            qdrant=dependencies["qdrant"],
+            gemini=dependencies["gemini"],
+        )
+
+    dependencies["gemini"].interactions.create.assert_not_called()
